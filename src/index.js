@@ -1,6 +1,8 @@
 import "./style.css";
 
 function OnWeatherSearch(searchCity) {
+  showLoadingText();
+
   //This is an API key that should be protected, but I'll learn how to later.
   fetch(
     "https://api.weatherapi.com/v1/current.json?key=8619ccc37eff4f6c9a2160054241803&q=" +
@@ -10,11 +12,20 @@ function OnWeatherSearch(searchCity) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      hideLoadingText();
       GenerateWeatherPageData(data);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
     });
+}
+
+function showLoadingText() {
+  document.getElementById("loadingText").style.display = "block";
+}
+
+function hideLoadingText() {
+  document.getElementById("loadingText").style.display = "none";
 }
 
 function GenerateWeatherPageData(WeatherObj) {
